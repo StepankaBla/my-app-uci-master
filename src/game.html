@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./index.css">
+    <title>Document</title>
+</head>
+
+<body class="game">
+    <p>Vygenerovaná vlastnost kočky: <span id="cat-property"></span></p>
+    <div id="cat-options">
+        <img class="cat" src="./mic.png" alt="cerna" onclick="checkGuess(0)">
+        <img class="cat" src="./zver.png" alt="or" onclick="checkGuess(1)">
+        <img class="cat" src="./fik.png" alt="seda" onclick="checkGuess(2)">
+        <img class="cat" src="./step.png" alt="seda" onclick="checkGuess(3)">
+        <img class="cat" src="./esch.png" alt="seda" onclick="checkGuess(4)">
+        <!-- Další kočky -->
+    </div>
+    <div id="result"></div>
+    <div id="counter"></div>
+    <a href="./index.html">go back</a>
+    <script>
+        const catData = [
+            "Catie, cyklistika, knír",
+            "Linux, Teorie velkého třesku, kolečko",
+            "Spánek, strojař",
+            "Kasiopa příkládečky, farma",
+            "Doutníček a klídeček",
+        ];
+
+        let usedIndices = [];
+        let correctOption;
+        const counter = document.getElementById("counter");
+
+        function generateCatProperty() {
+            // Ensure there are still unused indices
+            if (usedIndices.length === catData.length) {
+                // If all indices are used, reset the usedIndices array
+                usedIndices = [];
+            }
+
+            let randomIndex;
+
+            // Keep generating random indices until we find an unused one
+            do {
+                randomIndex = Math.floor(Math.random() * catData.length);
+            } while (usedIndices.includes(randomIndex));
+
+            const catProperty = catData[randomIndex];
+
+            document.getElementById('cat-property').textContent = catProperty;
+            correctOption = randomIndex;
+
+            // Add the used index to the array
+            usedIndices.push(randomIndex);
+        }
+
+        generateCatProperty();
+        function checkGuess(option) {
+            const element = event.target;
+            const resultElement = document.getElementById('result');
+            if (option === correctOption) {
+                resultElement.textContent = 'Správně! Odpověď je správná.';
+                document.body.style.backgroundColor = "#bbff99";
+                counter.innerText++;
+                if (Number(counter.innerText) === catData.length) {
+                    resultElement.textContent = 'VYHRAL JSI!';
+                    counter.innerText = "0";
+                }
+                generateCatProperty();
+
+            } else {
+                resultElement.textContent = 'Špatně! Odpověď je nesprávná.';
+                document.body.style.backgroundColor = "#ff9999";
+            }
+
+            // Generujeme novou vlastnost kočky po každé odpovědi
+        }
+
+
+        element.style.opacity = "1";
+
+        window.onload = generateCatProperty;
+    </script>
+</body>
+
+</html>

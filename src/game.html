@@ -5,29 +5,37 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./index.css">
-    <title>Document</title>
+    <title>My little pony - teacher edition</title>
 </head>
 
 <body class="game">
-    <p>Vygenerovaná vlastnost kočky: <span id="cat-property"></span></p>
+    <p class="teach"><b>Vlastnosti učitele:</b><br> <span id="cat-property"></span></p>
     <div id="cat-options">
         <img class="cat" src="./mic.png" alt="cerna" onclick="checkGuess(0)">
         <img class="cat" src="./zver.png" alt="or" onclick="checkGuess(1)">
         <img class="cat" src="./fik.png" alt="seda" onclick="checkGuess(2)">
         <img class="cat" src="./step.png" alt="seda" onclick="checkGuess(3)">
         <img class="cat" src="./esch.png" alt="seda" onclick="checkGuess(4)">
+        <img class="cat" src="./kub.png" alt="seda" onclick="checkGuess(5)">
         <!-- Další kočky -->
     </div>
     <div id="result"></div>
     <div id="counter"></div>
-    <a href="./index.html">go back</a>
+    <p class="teach">
+        <a href="./index.html" class="back">go back</a>
+    </p>
+   
     <script>
+        const audio = new Audio("corr.mp3");
+        const audio2 = new Audio("wr.mp3");
+        const audio3 = new Audio("w.mp3");
         const catData = [
             "Catie, cyklistika, knír",
             "Linux, Teorie velkého třesku, kolečko",
             "Spánek, strojař",
             "Kasiopa příkládečky, farma",
             "Doutníček a klídeček",
+            "Maďarsko, ingliš",
         ];
 
         let usedIndices = [];
@@ -62,17 +70,21 @@
             const element = event.target;
             const resultElement = document.getElementById('result');
             if (option === correctOption) {
-                resultElement.textContent = 'Správně! Odpověď je správná.';
+                resultElement.textContent = '';
+                audio.play();
                 document.body.style.backgroundColor = "#bbff99";
                 counter.innerText++;
                 if (Number(counter.innerText) === catData.length) {
                     resultElement.textContent = 'VYHRAL JSI!';
+                    audio3.play();
                     counter.innerText = "0";
                 }
                 generateCatProperty();
 
             } else {
-                resultElement.textContent = 'Špatně! Odpověď je nesprávná.';
+                resultElement.textContent = 'Špatně! Zpatky na nulu :)';
+                counter.innerText = "0";
+                audio2.play();
                 document.body.style.backgroundColor = "#ff9999";
             }
 

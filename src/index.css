@@ -129,3 +129,25 @@ a {
     -o-transform: rotateX(0deg) translateZ(25px);
     transform: rotateX(0deg) translateZ(25px);
 }
+
+.teach{
+  text-align: center;
+  font-size: 2rem;
+  color: rgb(117, 47, 126);
+}
+.teach a{
+  color: white;
+font-size: 1.5rem;
+  font-weight: bold;
+  
+}
+#counter{
+  text-align: center;
+  font-size: 2rem;
+  color: rgb(117, 47, 126);
+}
+#result{
+  text-align: center;
+  font-size: 2rem;
+  color:#ee4b2b;
+}
